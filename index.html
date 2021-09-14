@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>TEST</title>
+    <meta
+      name="description"
+      content="TEST"
+    />
+  </head>
+  <body onload="main()">
+    <h1>TEST</h1>
+    
+    <p id="output_p"></p>
+    
+    <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+    <script>
+      function main() {
+            console.log(1);
+            (async () => {
+
+                // Connect to cluster
+                var connection = new solanaWeb3.Connection(
+                    solanaWeb3.clusterApiUrl('devnet'),
+                    'confirmed',
+                );
+                console.log(2);
+                // Generate a new wallet keypair and airdrop SOL
+                var wallet = solanaWeb3.Keypair.generate();
+                var airdropSignature = await connection.requestAirdrop(
+                    wallet.publicKey,
+                    solanaWeb3.LAMPORTS_PER_SOL,
+                );
+                console.log(3);
+                //wait for airdrop confirmation
+                await connection.confirmTransaction(airdropSignature);
+                console.log(4);
+                // get account info
+                // account data is bytecode that needs to be deserialized
+                // serialization and deserialization is program specic
+                let account = await connection.getAccountInfo(wallet.publicKey);
+                console.log(account);
+                console.log(5);
+                })();
+      }
+    </script>
+
+    
+  </body>
+</html>
