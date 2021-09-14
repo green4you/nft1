@@ -31,7 +31,7 @@
                     wallet.publicKey,
                     solanaWeb3.LAMPORTS_PER_SOL,
                 );
-                console.log(3);
+                console.log('wallet pub key : ' + wallet.publicKey);
                 //wait for airdrop confirmation
                 await connection.confirmTransaction(airdropSignature);
                 console.log(4);
